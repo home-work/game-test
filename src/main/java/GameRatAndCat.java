@@ -1,10 +1,13 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class GameRatAndCat {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Cat tomCat = new Cat("Tom", 10);
         Rat jerryRat = new Rat("Jerry", 13, 10);
 
@@ -18,15 +21,15 @@ public class GameRatAndCat {
         tomCat.eat(jerryRat);
 
         Cat tomCat_1 = new Cat("Tom_1", 10);
-        Cat tomCat_2 = new Cat("Aom_2", 20);
-        Cat tomCat_3 = new Cat("Wom_3", 15);
+        Cat tomCat_2 = new Cat("Aom_2", 10);
+        Cat tomCat_3 = new Cat("Wom_3", 5);
         Cat tomCat_4 = new Cat("Gom_4", 12);
         Cat tomCat_5 = new Cat("Hom_5", 7);
 
-        Rat jerryRat_1 = new Rat("Jerry_1", 5, 15);
-        Rat jerryRat_2 = new Rat("Aerry_2", 19, 12);
+        Rat jerryRat_1 = new Rat("Jerry_1", 5, 10);
+        Rat jerryRat_2 = new Rat("Aerry_2", 19, 10);
         Rat jerryRat_3 = new Rat("Zerry_3", 8, 5);
-        Rat jerryRat_4 = new Rat("Ferry_4", 12, 6);
+        Rat jerryRat_4 = new Rat("Ferry_4", 12, 7);
         Rat jerryRat_5 = new Rat("Merry_5", 17, 10);
 
 
@@ -38,7 +41,6 @@ public class GameRatAndCat {
         rats.add(jerryRat_3);
         rats.add(jerryRat_4);
         rats.add(jerryRat_5);
-
 
 
         Collections.sort(rats);
@@ -66,6 +68,29 @@ public class GameRatAndCat {
             System.out.println(iteratorCats.next().getName());
         }
 
+        File file;
+        FileWriter fileWriter = null;
+        try {
+            file = new File("E:/CatCatchRat.txt");
+            fileWriter = new FileWriter(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+
+        Iterator<Cat> iteratorCats_1 = cats.iterator();
+        while (iteratorCats_1.hasNext()) {
+            Cat cat =  iteratorCats_1.next();
+            Iterator<Rat> iteratorRats_1 = rats.iterator();
+            while (iteratorRats_1.hasNext()) {
+                Rat rat =  iteratorRats_1.next();
+                if (cat.catchRat(rat) == true) {
+                    System.out.println(cat.getName() + "bắt được chuột " + rat.getName());
+                    fileWriter.write("\n" + cat.getName() + "bắt được chuột " + rat.getName());
+                    iteratorRats_1.remove();
+                }
+            }
+        }
+        fileWriter.close();
     }
 }
