@@ -1,4 +1,4 @@
-public class Cat extends Animal implements Comparable<Cat>, CanRun, CanFly, CanSwim {
+public class Cat extends Animal implements Comparable<Cat>, CanRun {
 
     private String name;
     private int speed;
@@ -13,11 +13,13 @@ public class Cat extends Animal implements Comparable<Cat>, CanRun, CanFly, CanS
     }
 
     public int getSpeed() {
-        return speed;
+        if (speed >= 0) {
+            return speed;
+        } else return -1;
     }
 
-    public void runCat() {
-        System.out.println("Cat is running with speed = " + speed);
+    public void run() {
+        System.out.println("Mèo đang chạy với tốc độ là: " + speed);
     }
 
     public boolean catchRat(Rat rat) {
@@ -33,10 +35,10 @@ public class Cat extends Animal implements Comparable<Cat>, CanRun, CanFly, CanS
 
     public void eat(Rat food) {
         if (catchRat(food) == true && food.getWeight() < 10) {
-            System.out.println("Mum mum, Rat is thin!");
+            System.out.println("Mum mum, chuột hơi gầy");
         } else if (catchRat(food) == true && food.getWeight() > 10) {
-            System.out.println("Mum mum, Rat is fat!");
-        } else System.out.println("Meo meo,hungry!");
+            System.out.println("Mum mum, chuột béo đấy");
+        } else System.out.println("Meo meo, đói");
     }
 
     @Override
@@ -44,17 +46,7 @@ public class Cat extends Animal implements Comparable<Cat>, CanRun, CanFly, CanS
         return this.getName().compareTo(o.getName());
     }
 
-    @Override
-    public String fly() {
-        return "Không bay được";
-    }
-
-    @Override
-    public String swim() {
-        return "Không thể bơi";
-    }
-
-    public String run() {
+    public String canRun() {
         return "Có thể chạy";
     }
 }
