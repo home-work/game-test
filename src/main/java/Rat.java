@@ -1,4 +1,4 @@
-public class Rat extends Animal implements Comparable<Rat>, CanRun, CanSwim, CanFly {
+public class Rat extends Animal implements Comparable<Rat>, CanRun, CanSwim {
 
     private String name;
     private int weight;
@@ -15,11 +15,15 @@ public class Rat extends Animal implements Comparable<Rat>, CanRun, CanSwim, Can
     }
 
     public int getSpeed() {
-        return speed;
+        if (speed >= 0) {
+            return speed;
+        } else return speed = -1;
     }
 
     public int getWeight() {
-        return weight;
+        if (weight >= 0) {
+            return weight;
+        } else return weight = -1;
     }
 
     public String toString() {
@@ -36,17 +40,12 @@ public class Rat extends Animal implements Comparable<Rat>, CanRun, CanSwim, Can
     }
 
     @Override
-    public String fly() {
-        return "Không thể bay";
-    }
-
-    @Override
-    public String run() {
+    public String canRun() {
         return "Có thể chạy";
     }
 
     @Override
-    public String swim() {
+    public String canSwim() {
         return "Có thể bơi";
     }
 }
